@@ -1,13 +1,13 @@
 from metrics.movingAverage import MovingAverage
 
-def init_metrics():
+def init_metrics(ticker, API_KEY):
     return {
-        'moving_average_5': MovingAverage(5),
-        'moving_average_10': MovingAverage(10),
-        'moving_average_20': MovingAverage(20),
-        'moving_average_50': MovingAverage(50),
-        'moving_average_100': MovingAverage(100),
-        'moving_average_200': MovingAverage(200),
+        'moving_average_5': MovingAverage(5, ticker, API_KEY),
+        'moving_average_10': MovingAverage(10, ticker, API_KEY),
+        'moving_average_20': MovingAverage(20, ticker, API_KEY),
+        'moving_average_50': MovingAverage(50, ticker, API_KEY),
+        'moving_average_100': MovingAverage(100, ticker, API_KEY),
+        'moving_average_200': MovingAverage(200, ticker, API_KEY),
     }
 
 def update_metrics(metrics, data):

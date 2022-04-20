@@ -2,6 +2,7 @@ from getPrice import get_data, get_index
 from calc import update_shares_owned
 from allMetrics import init_metrics, update_metrics, get_metrics
 import matplotlib.pyplot as plt
+from key import API_KEY
 
 def getPercDiff(init, curr):
     return ((curr - init) / init) * 100
@@ -9,12 +10,12 @@ def getPercDiff(init, curr):
 def getFirstDay(data):
     return next(iter(data))
 
-def backtest(dataset_by_day, index_dataset_by_day):
+def backtest(dataset_by_day, index_dataset_by_day, ticker):
     shares_owned = 0
     cash_init_amount = 10000
     cash = cash_init_amount
 
-    metrics = init_metrics()
+    metrics = init_metrics(ticker, API_KEY)
 
     stock_prices = []
     index_prices = []
@@ -50,6 +51,6 @@ def backtest(dataset_by_day, index_dataset_by_day):
 
 
 if __name__ == "__main__":
-    dataset_by_day = get_data('IBM')
-    index = get_data('QQQ')
-    backtest(dataset_by_day, index)
+    dataset_by_day = get_data('IBM', API_KEY)
+    index = get_data('QQQ', API_KEY)
+    backtest(dataset_by_day, index, 'IBM')

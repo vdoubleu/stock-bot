@@ -1,7 +1,21 @@
+import requests
+
 class MovingAverage():
-    def __init__(self, size):
+    def __init__(self, size, ticker, API_KEY):
         self.size = size
-        self.values = []
+        self.data = []
+        
+        # url = f"https://www.alphavantage.co/query?function=SMA&symbol={ticker}&interval=daily&time_period={size}&series_type=close&apikey={API_KEY}"
+        # r = requests.get(url)
+        # data = r.json()
+        # # reversed_data = {
+        # #         date: data['Time Series (Daily)'][date] 
+        # #         for date in reversed(data['Time Series (Daily)'])
+        # #     }
+        # # print(data)
+
+
+        self.data = []
 
     def update(self, data):
         self.add(data['close'])

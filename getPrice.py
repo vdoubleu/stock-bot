@@ -1,13 +1,7 @@
 import requests
-import os
-from dotenv import load_dotenv
 
-load_dotenv()
-
-API_KEY = os.getenv('AV_API_KEY')
-
-def get_data(ticker):
-    url = f"https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&symbol={ticker}&apikey={API_KEY}"
+def get_data(ticker, key):
+    url = f"https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&symbol={ticker}&apikey={key}"
     r = requests.get(url)
     data = r.json()
 
