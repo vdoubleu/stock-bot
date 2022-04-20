@@ -3,9 +3,7 @@ import requests
 class MovingAverage():
     def __init__(self, size, ticker, API_KEY):
         self.size = size
-        self.data = []
-        
-        self.data = []
+        self.values = []
 
     def update(self, data):
         self.add(data['close'])

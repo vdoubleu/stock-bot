@@ -40,13 +40,14 @@ def backtest(dataset_by_day, index_dataset_by_day, ticker):
         net_worths.append(getPercDiff(cash_init_amount, cash + (shares_owned * stock_day_data['close'])))
         
 
-        # update_metrics(metrics, stock_day_data)
+        update_metrics(metrics, stock_day_data)
 
-        # shares_owned = update_shares_owned(shares_owned, cash, stock_day_data, get_metrics(metrics))
+        shares_owned = update_shares_owned(shares_owned, cash, stock_day_data, get_metrics(metrics))
 
     plt.plot(stock_prices)
     plt.plot(index_prices)
     plt.plot(net_worths)
+    plt.legend(['Stock', 'Index', 'Net Worth'])
     plt.show()
 
 
