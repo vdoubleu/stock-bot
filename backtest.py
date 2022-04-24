@@ -55,6 +55,6 @@ def backtest(dataset_by_day, index_dataset_by_day, ticker):
 if __name__ == "__main__":
     dataset_by_day = {}
     index = {}
-    dataset_by_day = get_data('MSFT', API_KEY)
+    dataset_by_day = get_data('WMT', API_KEY)
     index = get_data('QQQ', API_KEY)
-    backtest(dataset_by_day, index, 'MSFT')
+    backtest(dataset_by_day, index, 'WMT')

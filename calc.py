@@ -1,10 +1,10 @@
-def buy(shared_owned, amount_to_buy, cash, price):
-    return [cash - amount_to_buy * price, shared_owned + amount_to_buy]
+def buy(shares_owned, amount_to_buy, cash, price):
+    return [cash - amount_to_buy * price, shares_owned + amount_to_buy]
 
 def sell(shares_owned, amount_to_sell, cash, price):
     return [cash + amount_to_sell * price, shares_owned - amount_to_sell]
 
-def RSI_prop(shared_owned, cash, stock_day_data, metrics):
+def RSI_prop(shares_owned, cash, stock_day_data, metrics):
     rsi = metrics['rsi']
 
     stock_price = stock_day_data['close']
@@ -26,8 +26,8 @@ def RSI_prop(shared_owned, cash, stock_day_data, metrics):
     else:
         return [cash, shares_owned]
 
-def MA_prop(shared_owned, cash, stock_day_data, metrics):
-    return [cash, shared_owned]
+def MA_prop(shares_owned, cash, stock_day_data, metrics):
+    return [cash, shares_owned]
 
 def update_shares_owned(shares_owned, cash, stock_day_data, metrics):
     # this is where you add the logic to determine how much to buy/sell/hold
