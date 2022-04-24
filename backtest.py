@@ -28,6 +28,7 @@ def backtest(dataset_by_day, index_dataset_by_day, ticker):
         data_for_date = dataset_by_day[date]
 
         stock_day_data = {
+            'date': date,
             'open': float(data_for_date['1. open']),
             'high': float(data_for_date['2. high']),
             'low': float(data_for_date['3. low']),
@@ -42,7 +43,7 @@ def backtest(dataset_by_day, index_dataset_by_day, ticker):
 
         update_metrics(metrics, stock_day_data)
 
-        shares_owned = update_shares_owned(shares_owned, cash, stock_day_data, get_metrics(metrics))
+        [cash, shares_owned] = update_shares_owned(shares_owned, cash, stock_day_data, get_metrics(metrics))
 
     plt.plot(stock_prices)
     plt.plot(index_prices)
@@ -52,6 +53,8 @@ def backtest(dataset_by_day, index_dataset_by_day, ticker):
 
 
 if __name__ == "__main__":
-    dataset_by_day = get_data('IBM', API_KEY)
+    dataset_by_day = {}
+    index = {}
+    dataset_by_day = get_data('MSFT', API_KEY)
     index = get_data('QQQ', API_KEY)
-    backtest(dataset_by_day, index, 'IBM')
+    backtest(dataset_by_day, index, 'MSFT')

@@ -1,7 +1,7 @@
 import requests
 
 def get_data(ticker, key):
-    url = f"https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&symbol={ticker}&apikey={key}"
+    url = f"https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&symbol={ticker}&apikey={key}&outputsize=full"
     r = requests.get(url)
     data = r.json()
 

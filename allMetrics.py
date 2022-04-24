@@ -1,8 +1,12 @@
 from metrics.movingAverage import MovingAverage
+from metrics.expoMovingAverage import ExpoMovingAverage
+from metrics.RSI import RSI
 
 def init_metrics(ticker, API_KEY):
     return {
-        'moving_average_5': MovingAverage(5, ticker, API_KEY),
+        # 'moving_average_5': MovingAverage(5, ticker, API_KEY),
+        # 'expo_moving_average_5': ExpoMovingAverage(5, ticker, API_KEY),
+        'rsi': RSI(5, ticker, API_KEY)
     }
 
 def update_metrics(metrics, data):
