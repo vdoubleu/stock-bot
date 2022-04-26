@@ -42,7 +42,7 @@ def RSI_kelly(shares_owned, cash, stock_day_data, metrics):
 
         amount_to_buy = prop * amount_available_to_buy
 
-        print("buy", index, prop, amount_available_to_buy, shares_owned, cash, stock_day_data['close'])
+        #print("buy", index, prop, amount_available_to_buy, shares_owned, cash, stock_day_data['close'])
 
         return buy(shares_owned, amount_to_buy, cash, stock_day_data['close'])
     elif rsi > 70:
@@ -50,7 +50,7 @@ def RSI_kelly(shares_owned, cash, stock_day_data, metrics):
 
         amount_to_sell = prop * amount_available_to_sell
 
-        print("sell", index, prop, amount_available_to_sell, shares_owned, cash, stock_day_data['close'])
+        #print("sell", index, prop, amount_available_to_sell, shares_owned, cash, stock_day_data['close'])
         return sell(shares_owned, amount_to_sell, cash, stock_day_data['close'])
     else:
         return [cash, shares_owned]
@@ -71,7 +71,7 @@ def RSI_prop(shares_owned, cash, stock_day_data, metrics):
         prop = ((30 - rsi) / 30)
         amount_to_buy = prop * amount_available_to_buy
 
-        print("buy", index, rsi, amount_to_buy, shares_owned, cash, stock_day_data['close'])
+        #print("buy", index, rsi, amount_to_buy, shares_owned, cash, stock_day_data['close'])
         return buy(shares_owned, amount_to_buy, cash, stock_day_data['close'])
     elif rsi > 70:
         amount_available_to_sell = shares_owned
@@ -79,7 +79,7 @@ def RSI_prop(shares_owned, cash, stock_day_data, metrics):
         prop = ((rsi - 70) / 30)
         amount_to_sell = prop * amount_available_to_sell
 
-        print("sell", index, rsi, amount_to_sell, shares_owned, cash, stock_day_data['close'])
+        #print("sell", index, rsi, amount_to_sell, shares_owned, cash, stock_day_data['close'])
         return sell(shares_owned, amount_to_sell, cash, stock_day_data['close'])
     else:
         return [cash, shares_owned]
@@ -87,8 +87,9 @@ def RSI_prop(shares_owned, cash, stock_day_data, metrics):
 def MA_prop(shares_owned, cash, stock_day_data, metrics):
     return [cash, shares_owned]
 
-def update_shares_owned(shares_owned, cash, stock_day_data, metrics):
-    # return RSI_kelly(shares_owned, cash, stock_day_data, metrics)
+def update_shares_RSIprop(shares_owned, cash, stock_day_data, metrics):
     return RSI_prop(shares_owned, cash, stock_day_data, metrics)
-    # return kelly(shares_owned, cash, stock_day_data, metrics)
+
+def update_shares_RSIkelly(shares_owned, cash, stock_day_data, metrics):
+    return RSI_kelly(shares_owned, cash, stock_day_data, metrics)
 
