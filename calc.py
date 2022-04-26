@@ -90,8 +90,8 @@ def MA_prop(shares_owned, cash, stock_day_data, metrics):
 def update_shares_RSIprop(shares_owned, cash, stock_day_data, metrics):
     return RSI_prop(shares_owned, cash, stock_day_data, metrics)
 
-def update_shares_RSIkelly(shares_owned, cash, stock_day_data, metrics):
-    return RSI_kelly(shares_owned, cash, stock_day_data, metrics)
+def update_shares_Kelly(shares_owned, cash, stock_day_data, metrics):
+    return kelly(shares_owned, cash, stock_day_data, metrics)
 
 # def update_shares_owned(shares_owned, cash, stock_day_data, metrics):
 #     # return RSI_kelly(shares_owned, cash, stock_day_data, metrics)

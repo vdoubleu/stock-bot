@@ -1,5 +1,5 @@
 from getPrice import get_data, get_index
-from calc import update_shares_RSIkelly, update_shares_RSIprop
+from calc import update_shares_Kelly, update_shares_RSIprop
 from allMetrics import init_metrics, update_metrics, get_metrics
 import matplotlib.pyplot as plt
 from key import API_KEY
@@ -8,17 +8,17 @@ def getPercDiff(init, curr):
     return ((curr - init) / init) * 100
 
 def backtest(dataset_by_day, index_dataset_by_day, ticker, skip_n):
-    shares_RSIkelly = 0
+    shares_Kelly = 0
     shares_RSIprop = 0
     cash_init_amount = 10000
-    cash_RSIkelly = cash_init_amount
+    cash_Kelly = cash_init_amount
     cash_RSIprop = cash_init_amount
 
     metrics = init_metrics(ticker, API_KEY)
 
     stock_prices = []
     index_prices = []
-    net_worths_RSIkelly = []
+    net_worths_Kelly = []
     net_worths_RSIprop = []
 
 
@@ -49,37 +49,30 @@ def backtest(dataset_by_day, index_dataset_by_day, ticker, skip_n):
 
         stock_prices.append(getPercDiff(stock_init_price, stock_day_data['close']))
         index_prices.append(getPercDiff(index_init_price, float(index_dataset_by_day[date]['4. close'])))
-        net_worths_RSIkelly.append(getPercDiff(cash_init_amount, cash_RSIkelly + (shares_RSIkelly * stock_day_data['close'])))
+        net_worths_Kelly.append(getPercDiff(cash_init_amount, cash_Kelly + (shares_Kelly * stock_day_data['close'])))
         net_worths_RSIprop.append(getPercDiff(cash_init_amount, cash_RSIprop + (shares_RSIprop * stock_day_data['close'])))
         
 
         update_metrics(metrics, stock_day_data)
 
-        [cash_RSIkelly, shares_RSIkelly] = update_shares_RSIkelly(shares_RSIkelly, cash_RSIkelly, stock_day_data, get_metrics(metrics))
+        [cash_Kelly, shares_Kelly] = update_shares_Kelly(shares_Kelly, cash_Kelly, stock_day_data, get_metrics(metrics))
         [cash_RSIprop, shares_RSIprop] = update_shares_RSIprop(shares_RSIprop, cash_RSIprop, stock_day_data, get_metrics(metrics))
         ind += 1
 
     plt.plot(stock_prices)
     plt.plot(index_prices)
-    plt.plot(net_worths_RSIkelly)
+    plt.plot(net_worths_Kelly)
     plt.plot(net_worths_RSIprop)
     plt.xlabel('# of days')
     plt.ylabel('% difference')
-    plt.legend(['Stock', 'Index (S&P 500)', 'Net Worth (RSI Kelly)', 'Net Worth (RSI Prop)'])
+    plt.legend(['Stock', 'Index (S&P 500)', 'Net Worth (Kelly)', 'Net Worth (RSI Prop)'])
     plt.title(ticker)
     plt.show()
 
 
 if __name__ == "__main__":
-<<<<<<< HEAD
-    stock_tickers = ['GOOG', 'MSFT']
+    stock_tickers = ['F', 'GOOG', 'MSFT', 'ORCL']
     for ticker in stock_tickers:
         dataset_by_day = get_data(ticker, API_KEY)
         index = get_data('SPY', API_KEY)
         backtest(dataset_by_day, index, ticker, 0)
-=======
-    stock_ticker = 'F'
-    dataset_by_day = get_data(stock_ticker, API_KEY)
-    index = get_data('QQQ', API_KEY)
-    backtest(dataset_by_day, index, stock_ticker, 0)
->>>>>>> f65ec46 (fix kelly)
