@@ -71,8 +71,15 @@ def backtest(dataset_by_day, index_dataset_by_day, ticker, skip_n):
 
 
 if __name__ == "__main__":
+<<<<<<< HEAD
     stock_tickers = ['GOOG', 'MSFT']
     for ticker in stock_tickers:
         dataset_by_day = get_data(ticker, API_KEY)
         index = get_data('SPY', API_KEY)
         backtest(dataset_by_day, index, ticker, 0)
+=======
+    stock_ticker = 'F'
+    dataset_by_day = get_data(stock_ticker, API_KEY)
+    index = get_data('QQQ', API_KEY)
+    backtest(dataset_by_day, index, stock_ticker, 0)
+>>>>>>> f65ec46 (fix kelly)
