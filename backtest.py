@@ -3,6 +3,7 @@ from calc import update_shares_Kelly, update_shares_RSIprop
 from allMetrics import init_metrics, update_metrics, get_metrics
 import matplotlib.pyplot as plt
 from key import API_KEY
+from getTickers import get_tickers
 
 def getPercDiff(init, curr):
     return ((curr - init) / init) * 100
@@ -71,7 +72,8 @@ def backtest(dataset_by_day, index_dataset_by_day, ticker, skip_n):
 
 
 if __name__ == "__main__":
-    stock_tickers = ['F', 'GOOG', 'MSFT', 'ORCL']
+    stock_tickers = get_tickers()
+    stock_tickers = ['F', 'GOOG']
     for ticker in stock_tickers:
         dataset_by_day = get_data(ticker, API_KEY)
         index = get_data('SPY', API_KEY)
