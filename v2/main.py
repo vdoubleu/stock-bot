@@ -1,14 +1,16 @@
 import backtrader as bt
 from add_data_feeds import add_data
-from strategies.RSI import RSIStrat
+from strategies.MeanRevert import MeanRevert
 
 if __name__ == "__main__":
+    start_cash = 10000
+
     cerebro = bt.Cerebro()
-    cerebro.broker.set_cash(10000)
+    cerebro.broker.set_cash(start_cash)
 
-    add_data(cerebro)
+    stocks_added = add_data(cerebro)
 
-    cerebro.addstrategy(RSIStrat, rsiperiod=5)
+    cerebro.addstrategy(MeanRevert, rsiperiod=5, maxstockinvest=1/stocks_added)
     
     print(f"starting value: {cerebro.broker.get_value()}")
     cerebro.run()

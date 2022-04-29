@@ -3,7 +3,7 @@ import datetime
 import backtrader as bt
 
 ignore_list = [
-    # 'TSLA', 
+    'TSLA', 
     # 'DIS', 
     # 'JNJ', 
     # 'BRK-B', 
@@ -15,6 +15,7 @@ ignore_list = [
 
 
 def add_data(cerebro):
+    stocks_added = 0
     # for file in data/ folder, add datafeed
     for file in os.listdir("data"):
         if (file.split(".")[0]) in ignore_list:
@@ -28,3 +29,6 @@ def add_data(cerebro):
         cerebro.adddata(data, name=file.split(".")[0])
 
         print(f"added data feed: {file}")
+        stocks_added += 1
+
+    return stocks_added
