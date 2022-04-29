@@ -32,7 +32,7 @@ class MeanRevert(bt.Strategy):
                 dorders[:] = []
         
     def buy_stock(self, data, name, curr_date, size):
-        self.orders[data] = [self.buy(data=data)]
+        self.orders[data] = [self.buy(data=data, size=size)]
         print(f"{curr_date} {name} buy {self.orders[data][0].size}")
         self.holdlength[data] = 0
 
@@ -42,7 +42,7 @@ class MeanRevert(bt.Strategy):
         print(f"{curr_date} {name} sell {curr_order.size}")
                  
     def short_stock(self, data, name, curr_date, size):
-        self.orders[data] = [self.buy(data=data, size=-1)]
+        self.orders[data] = [self.buy(data=data, size=-size)]
         print(f"{curr_date} {name} short {self.orders[data][0].size}")
         self.holdlength[data] = 0
 
@@ -61,11 +61,11 @@ class MeanRevert(bt.Strategy):
             if not pos_size and not self.orders.get(data, None):
                 if self.dataRSI[name][0] < 30:
                     if self.dataRSI[name][0] < 20:
-                        self.buy_stock(data, name, curr_date)
+                        self.buy_stock(data, name, curr_date, amount_to_buy)
                     elif self.dataclose[name][0] > self.dataBollinger[name].lines.top[0]:
-                        self.buy_stock(data, name, curr_date)  
+                        self.buy_stock(data, name, curr_date, amount_to_buy)  
                 elif self.dataRSI[name][0] > 85:
-                    self.short_stock(data, name, curr_date)
+                    self.short_stock(data, name, curr_date, amount_to_buy)
             elif pos_size and pos_size > 0:
                 self.holdlength[data] += 1
                 buy_in_price = self.getposition(data).price
@@ -74,7 +74,8 @@ class MeanRevert(bt.Strategy):
                 elif buy_in_price * 0.9 > self.dataclose[name][0]: # stop loss
                     self.close_stock(data, name, curr_date)
                 elif self.holdlength[data] >= self.params.holdmax:
-                    self.buy_stock(data, name, curr_date)
+                    if pos_size < amount_to_buy:
+                        self.buy_stock(data, name, curr_date, amount_to_buy)
             elif pos_size and pos_size < 0:
                 self.holdlength[data] += 1
                 buy_in_price = self.getposition(data).price
