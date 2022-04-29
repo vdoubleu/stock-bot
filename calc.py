@@ -9,6 +9,7 @@ def kelly(shares_owned, cash, stock_day_data, metrics):
     stock_price = stock_day_data['close']
     prop = max(min(kelly_crit / 1.5, 1), -1) if kelly_crit else 0
 
+    print(stock_day_data['index'])
     if prop > 0:
         amount_available_to_buy = (cash / stock_price)
 
@@ -34,7 +35,7 @@ def RSI_kelly(shares_owned, cash, stock_day_data, metrics):
 
     stock_price = stock_day_data['close']
 
-    # print(index, metrics)
+    # print(index) #, metrics)
     prop = max(min(kelly_crit / 2, 1), 0) if kelly_crit else 0
 
     if rsi < 30:
@@ -42,7 +43,7 @@ def RSI_kelly(shares_owned, cash, stock_day_data, metrics):
 
         amount_to_buy = prop * amount_available_to_buy
 
-        #print("buy", index, prop, amount_available_to_buy, shares_owned, cash, stock_day_data['close'])
+        print("buy", index, prop, amount_available_to_buy, shares_owned, cash, stock_day_data['close'])
 
         return buy(shares_owned, amount_to_buy, cash, stock_day_data['close'])
     elif rsi > 70:
@@ -50,7 +51,7 @@ def RSI_kelly(shares_owned, cash, stock_day_data, metrics):
 
         amount_to_sell = prop * amount_available_to_sell
 
-        #print("sell", index, prop, amount_available_to_sell, shares_owned, cash, stock_day_data['close'])
+        print("sell", index, prop, amount_available_to_sell, shares_owned, cash, stock_day_data['close'])
         return sell(shares_owned, amount_to_sell, cash, stock_day_data['close'])
     else:
         return [cash, shares_owned]
@@ -93,8 +94,8 @@ def update_shares_RSIprop(shares_owned, cash, stock_day_data, metrics):
 def update_shares_Kelly(shares_owned, cash, stock_day_data, metrics):
     return kelly(shares_owned, cash, stock_day_data, metrics)
 
-# def update_shares_owned(shares_owned, cash, stock_day_data, metrics):
-#     # return RSI_kelly(shares_owned, cash, stock_day_data, metrics)
-#     # return RSI_prop(shares_owned, cash, stock_day_data, metrics)
-#     return kelly(shares_owned, cash, stock_day_data, metrics)
+def update_shares_owned(shares_owned, cash, stock_day_data, metrics):
+    # return RSI_kelly(shares_owned, cash, stock_day_data, metrics)
+    # return RSI_prop(shares_owned, cash, stock_day_data, metrics)
+    return kelly(shares_owned, cash, stock_day_data, metrics)
 

@@ -76,5 +76,4 @@ if __name__ == "__main__":
     stock_tickers = ['F', 'GOOG']
     for ticker in stock_tickers:
         dataset_by_day = get_data(ticker, API_KEY)
-        index = get_data('SPY', API_KEY)
         backtest(dataset_by_day, index, ticker, 0)

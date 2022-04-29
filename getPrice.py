@@ -4,7 +4,7 @@ def get_data(ticker, key):
     url = f"https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&symbol={ticker}&apikey={key}&outputsize=compact"
     r = requests.get(url)
     data = r.json()
-    print(data)
+    # print(data)
 
     reversed_data = {date: data['Time Series (Daily)'][date] for date in reversed(data['Time Series (Daily)'])}
 

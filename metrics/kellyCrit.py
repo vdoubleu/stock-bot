@@ -11,6 +11,7 @@ class KellyCrit(GeoBrownian):
     def get(self):
         if self.is_ready():
             drift = self.n_day_drift(self.time_period_kelly)
+            print(drift)
             volatility = self.n_day_volatility(self.time_period_kelly) 
             return drift / (volatility ** 2)
         else:
